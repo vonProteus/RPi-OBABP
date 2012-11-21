@@ -8,6 +8,9 @@ this is my modification of [The One Button Audiobook Player](http://blogs.fsfe.o
 ###Schematics
 ![Schematics](https://raw.github.com/vonProteus/RPi-OBABP/master/obabp_schematics.png)
 
+###Run
+sudo python src/obabp.py
+
 ###Requirements
 mpd 
 mpc 
