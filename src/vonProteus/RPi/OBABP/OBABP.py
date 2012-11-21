@@ -17,12 +17,10 @@ class OBABP(object):
     '''
 
 
-    def __init__(self, Led, Butt,):
+    def __init__(self,):
         '''
         Constructor
         '''
-        self.setLed(Led);
-        self.setButton(Butt);
         self.setPort('6600');
         self.setHost('localhost');
         self.client = MPDClient();
@@ -60,6 +58,14 @@ class OBABP(object):
         except SocketError:
             return False
         return True
+    
+    def satupGPIO(self, mode):
+        GPIO.cleanup();
+        GPIO.setmode(mode);
+        GPIO.setup(self.led, GPIO.OUT);
+        GPIO.setup(self.button, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
+
+        
     
     def flashLED(self, speed, time):
         for x in range(0, time):
