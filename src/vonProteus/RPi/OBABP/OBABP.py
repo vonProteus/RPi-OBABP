@@ -130,6 +130,7 @@ class OBABP(object):
         print "setup ok"
         while True:
             pendrive = self.checkForUSBDevice();
+            self.updateLED();
             if pendrive != "":
                 print "new music detected"
                 self.flashLED(0.1, 5);
@@ -139,12 +140,14 @@ class OBABP(object):
                 print self.client.status();
                 self.flashLED(0.05, 10)
                 while self.checkForUSBDevice() == pendrive:
+                    self.flashLED(0.1, 1);
                     sleep(0.1);
                 print "new music added"
                 self.flashLED(0.1, 5);
             if self.buttonDown():
                 if timebuttonisstillpressed == 0:
                     self.playPause();
+                    sleep(0.1)
                     self.updateLED();
                 if timebuttonisstillpressed > 4:
                     print "prev"
@@ -154,8 +157,8 @@ class OBABP(object):
                 timebuttonisstillpressed = timebuttonisstillpressed + 0.1;
             else:
                 timebuttonisstillpressed = 0;
+            
             sleep(0.1)
-
         
         return 1;
     
