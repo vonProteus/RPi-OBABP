@@ -8,8 +8,8 @@ import RPi.GPIO as GPIO
 
 def main():
     obabp = OBABP();
-    obabp.setLed(12);
-    obabp.setButton(13);
+    obabp.setLed(18);
+    obabp.setButton(26);
     obabp.setDriveName("1GB");
     obabp.setMountPoint("/mnt/usb/");
     obabp.setMusicDir("/var/lib/mpd/music/");

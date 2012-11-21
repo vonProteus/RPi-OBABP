@@ -56,14 +56,16 @@ class OBABP(object):
             con_id = {'host':self.host, 'port':self.port}
             self.client.connect(**con_id)
         except SocketError:
+            print "connection: error";
             return False
+        print "connection: ok";
         return True
     
     def satupGPIO(self, mode):
-        GPIO.cleanup();
+#        GPIO.cleanup();
         GPIO.setmode(mode);
         GPIO.setup(self.led, GPIO.OUT);
-        GPIO.setup(self.button, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
+        GPIO.setup(self.button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
         
     
@@ -103,11 +105,12 @@ class OBABP(object):
         return res
     
     def buttonDown(self):
-        if GPIO.input(self.button) == True:
+        if GPIO.input(self.button) == False:
             return True;
         else:
             return False;
     def playPause(self):
+        print "play/pause"
         if self.client.status()["state"] == "stop":
             self.client.play();
         else:
@@ -115,10 +118,8 @@ class OBABP(object):
     
     
     def go(self):
-        if self.connectMPD():
-            print "connection: ok";
-        else:
-            print "connection: error";
+        self.connectMPD()
+       
         
         print self.client.status();
 
@@ -126,10 +127,11 @@ class OBABP(object):
         
         self.flashLED(0.1, 10);
         self.updateLED();
-        
+        print "setup ok"
         while True:
             pendrive = self.checkForUSBDevice();
             if pendrive != "":
+                print "new music detected"
                 self.flashLED(0.1, 5);
                 self.client.disconnect();
                 self.loadMusic(pendrive);
@@ -138,12 +140,14 @@ class OBABP(object):
                 self.flashLED(0.05, 10)
                 while self.checkForUSBDevice() == pendrive:
                     sleep(0.1);
+                print "new music added"
                 self.flashLED(0.1, 5);
             if self.buttonDown():
                 if timebuttonisstillpressed == 0:
                     self.playPause();
                     self.updateLED();
                 if timebuttonisstillpressed > 4:
+                    print "prev"
                     self.client.previous();
                     self.flashLED(0.1, 5);
                     timebuttonisstillpressed = 0;
