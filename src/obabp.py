@@ -3,7 +3,7 @@ Created on Nov 21, 2012
 
 @author: proteus
 '''
-from vonProteus.RPi.OBABP import OBABP
+from vonProteus.RPi.OBABP.OBABP import OBABP
 import RPi.GPIO as GPIO
 
 def main():
