@@ -79,7 +79,7 @@ class OBABP(object):
     def loadMusic(self, device):
         os.system("mount "+device+" "+self.mountPoint);
         os.system("/etc/init.d/mpd stop");
-        os.system("rm "+self.musicDir+"*");
+        os.system("rm -rf "+self.musicDir+"*");
         os.system("cp "+self.mountPoint+"* "+self.musicDir);
         os.system("umount "+self.mountPoint);
         os.system("rm "+self.mpdTagCasche);
