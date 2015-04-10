@@ -19,3 +19,6 @@ python-mpd
 
 ###Install
 curl https://raw.github.com/vonProteus/RPi-OBABP/master/install.sh | sh
+
+###Notes
+i tested it on Raspberry Pi model B with RASPBIAN
